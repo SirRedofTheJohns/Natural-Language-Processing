@@ -1,0 +1,46 @@
+{
+  "model_selected_before_test": "ModernBERT-base 512",
+  "selection_metric": "validation macro F1",
+  "test_rows": 16860,
+  "baseline_fixed_threshold": 0.8,
+  "transformer_fixed_threshold": 0.9,
+  "global_test_results": [
+    {
+      "model": "TF-IDF + Logistic Regression",
+      "test_accuracy": 0.8015,
+      "test_macro_f1": 0.7837,
+      "test_weighted_f1": 0.8001,
+      "runtime_seconds": 2.6992,
+      "records_per_second": 6246.3614
+    },
+    {
+      "model": "ModernBERT-base 512",
+      "test_accuracy": 0.8222,
+      "test_macro_f1": 0.804,
+      "test_weighted_f1": 0.8209,
+      "runtime_seconds": 55.0865,
+      "records_per_second": 306.0642
+    }
+  ],
+  "selective_routing_test_results": [
+    {
+      "model": "TF-IDF + Logistic Regression",
+      "fixed_threshold": 0.8,
+      "automatically_routed_rows": 7186,
+      "manual_review_rows": 9674,
+      "automation_coverage_percent": 42.6216,
+      "accuracy_on_automated_cases": 0.9641,
+      "macro_f1_on_automated_cases": 0.939
+    },
+    {
+      "model": "ModernBERT-base 512",
+      "fixed_threshold": 0.9,
+      "automatically_routed_rows": 10290,
+      "manual_review_rows": 6570,
+      "automation_coverage_percent": 61.032,
+      "accuracy_on_automated_cases": 0.9587,
+      "macro_f1_on_automated_cases": 0.9413
+    }
+  ],
+  "note": "The test set was opened only after model and threshold selection. No further tuning should be performed using these results."
+}
