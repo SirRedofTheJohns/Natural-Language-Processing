@@ -1,0 +1,3 @@
+timestamp_utc,filename,model,feature_set,threshold,ensemble_weights,repeated_cv_accuracy,repeated_cv_std,family_group_score,ticket_group_score,kaggle_public_score,submission_ref,notes
+2026-07-25T07:33:24.930912+00:00,baseline_gender.csv,gender_rule,Sex only,0.5,,0.7867564534231201,0.0,,,,,Generated for schema validation; not intended for submission.
+2026-07-25T07:33:24.930912+00:00,hist_gradient_boosting_selected.csv,hist_gradient_boosting,basic,0.575,,0.8323143556587783,0.02308937194510418,0.8204318624066286,0.8282256425751306,0.77033,54982397,Validated SHA-256 dfe642c14097c00eac73787d7de81f95946cce7ca005657bc13ced870f085e67; Kaggle status COMPLETE at 2026-07-25T18:36:08.117000; score recorded only after model lock; no retuning.

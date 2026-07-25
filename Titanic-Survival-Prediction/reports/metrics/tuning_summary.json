@@ -1,0 +1,34 @@
+[
+  {
+    "best_params": {
+      "model__depth": 5,
+      "model__iterations": 250,
+      "model__l2_leaf_reg": 8.0,
+      "model__learning_rate": 0.04,
+      "model__random_strength": 1.5
+    },
+    "elapsed_seconds": 561.1344372000021,
+    "feature_set": "ticket_cabin",
+    "folds_per_configuration": 5,
+    "model": "catboost",
+    "n_iter": 12,
+    "search_best_mean_accuracy": 0.8406440273680247,
+    "total_fits": 60
+  },
+  {
+    "best_params": {
+      "model__l2_regularization": 0.0,
+      "model__learning_rate": 0.05,
+      "model__max_iter": 150,
+      "model__max_leaf_nodes": 7,
+      "model__min_samples_leaf": 10
+    },
+    "elapsed_seconds": 12.914911400002893,
+    "feature_set": "ticket_cabin",
+    "folds_per_configuration": 5,
+    "model": "hist_gradient_boosting",
+    "n_iter": 12,
+    "search_best_mean_accuracy": 0.8282530914569077,
+    "total_fits": 60
+  }
+]

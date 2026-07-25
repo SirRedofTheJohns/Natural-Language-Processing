@@ -1,0 +1,118 @@
+{
+  "acquired_utc": "2026-07-25T07:15:42.961607+00:00",
+  "competition": "titanic",
+  "files": {
+    "gender_submission.csv": {
+      "bytes": 3258,
+      "column_names": [
+        "PassengerId",
+        "Survived"
+      ],
+      "columns": 2,
+      "dtypes": {
+        "PassengerId": "int64",
+        "Survived": "int64"
+      },
+      "missing_counts": {
+        "PassengerId": 0,
+        "Survived": 0
+      },
+      "rows": 418,
+      "sha256": "7a262a7f4cb807f53911dccc84257ed3976b21b7b50ffc468b58446bff8bb6a4"
+    },
+    "test.csv": {
+      "bytes": 28629,
+      "column_names": [
+        "PassengerId",
+        "Pclass",
+        "Name",
+        "Sex",
+        "Age",
+        "SibSp",
+        "Parch",
+        "Ticket",
+        "Fare",
+        "Cabin",
+        "Embarked"
+      ],
+      "columns": 11,
+      "dtypes": {
+        "Age": "float64",
+        "Cabin": "str",
+        "Embarked": "str",
+        "Fare": "float64",
+        "Name": "str",
+        "Parch": "int64",
+        "PassengerId": "int64",
+        "Pclass": "int64",
+        "Sex": "str",
+        "SibSp": "int64",
+        "Ticket": "str"
+      },
+      "missing_counts": {
+        "Age": 86,
+        "Cabin": 327,
+        "Embarked": 0,
+        "Fare": 1,
+        "Name": 0,
+        "Parch": 0,
+        "PassengerId": 0,
+        "Pclass": 0,
+        "Sex": 0,
+        "SibSp": 0,
+        "Ticket": 0
+      },
+      "rows": 418,
+      "sha256": "56023b9948236f3c7a1c9448fcf418b283e109ef177fa8c7e069158dd7dd52b2"
+    },
+    "train.csv": {
+      "bytes": 61194,
+      "column_names": [
+        "PassengerId",
+        "Survived",
+        "Pclass",
+        "Name",
+        "Sex",
+        "Age",
+        "SibSp",
+        "Parch",
+        "Ticket",
+        "Fare",
+        "Cabin",
+        "Embarked"
+      ],
+      "columns": 12,
+      "dtypes": {
+        "Age": "float64",
+        "Cabin": "str",
+        "Embarked": "str",
+        "Fare": "float64",
+        "Name": "str",
+        "Parch": "int64",
+        "PassengerId": "int64",
+        "Pclass": "int64",
+        "Sex": "str",
+        "SibSp": "int64",
+        "Survived": "int64",
+        "Ticket": "str"
+      },
+      "missing_counts": {
+        "Age": 177,
+        "Cabin": 687,
+        "Embarked": 2,
+        "Fare": 0,
+        "Name": 0,
+        "Parch": 0,
+        "PassengerId": 0,
+        "Pclass": 0,
+        "Sex": 0,
+        "SibSp": 0,
+        "Survived": 0,
+        "Ticket": 0
+      },
+      "rows": 891,
+      "sha256": "7d118fef8b6ccf7f81111877bc388536f7b1e498a655e3d649d19aaa010e9f6f"
+    }
+  },
+  "official_source": "https://www.kaggle.com/competitions/titanic/data"
+}
