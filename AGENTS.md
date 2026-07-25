@@ -1,179 +1,612 @@
-# Financial Complaint Triage System — Agent Instructions
+# Financial Complaint Triage System — Codex Instructions
 
-## Project goal
+## Mission
 
-Build a production-quality portfolio project that classifies CFPB consumer
-complaint narratives into 11 financial product categories and decides whether
-a prediction can be routed automatically or requires human review.
+Convert the completed NLP experiments into a small, professional,
+production-oriented portfolio prototype.
 
-The repository must demonstrate:
+The project classifies CFPB consumer complaint narratives into 11 financial
+product categories and decides whether a complaint can be routed automatically
+or should be sent to human review.
 
-- rigorous NLP and machine-learning experimentation;
-- comparison between a classical baseline and a transformer;
-- leakage-safe evaluation;
-- reusable inference code;
-- an API and interactive demo;
-- automated testing;
-- clear documentation and reproducibility.
+The final repository must demonstrate:
 
-## Current validated results
+- efficient data preparation;
+- leakage-safe machine-learning evaluation;
+- comparison between classical NLP and a transformer;
+- reusable model inference;
+- confidence-based human review;
+- a usable API and interactive demo;
+- automated tests;
+- honest documentation of trade-offs and limitations.
 
-The experimentation phase is complete.
+This is a portfolio prototype, not a production-certified financial system.
 
-Selected transformer:
-- Model: answerdotai/ModernBERT-base
-- Maximum length: 512 tokens
-- Precision: bfloat16 on supported CUDA hardware
-- Final test accuracy: 0.8222
-- Final test macro F1: 0.8040
-- Operational confidence threshold: 0.90
-- Automatic routing coverage on test: 61.0320%
-- Accuracy on automatically routed test cases: 0.9587
+## Avoid overengineering
+
+This is a focused portfolio project.
+
+Do not create:
+
+- microservices;
+- model registries;
+- plugin systems;
+- abstract backend hierarchies;
+- dependency-injection frameworks;
+- multiple configuration packages;
+- a custom CLI;
+- Docker configuration;
+- separate model-card and data-card documents;
+- duplicate baseline and transformer production backends;
+- unnecessary scripts or placeholder directories.
+
+Do not create new files outside the target structure unless a concrete
+technical need exists. Explain that need before creating them.
+
+Prefer the smallest implementation that is clear, testable, and useful.
+
+## Target repository structure
+
+```text
+.github/workflows/tests.yml
+api/main.py
+app/streamlit_app.py
+notebooks/01_dataset_audit.ipynb
+notebooks/02_model_experiments.ipynb
+reports/metrics/final_test_results.json
+src/financial_complaint_triage/__init__.py
+src/financial_complaint_triage/inference.py
+tests/test_inference.py
+tests/test_api.py
+tests/test_model_smoke.py
+.gitignore
+AGENTS.md
+LICENSE
+README.md
+pyproject.toml
+requirements.txt
+```
+
+Adapt existing files to this structure. Do not recreate files that already
+serve the required purpose.
+
+Do not create empty directories or placeholder files merely to match the target
+tree.
+
+## Validated experimental state
+
+The experiment is complete.
+
+Dataset:
+
+- clean rows: 112,394;
+- product classes: 11;
+- train rows: 78,675;
+- validation rows: 16,859;
+- test rows: 16,860;
+- selected date range: 2023-09-01 through 2026-07-03.
 
 Classical baseline:
-- TF-IDF + Logistic Regression
-- Final test accuracy: 0.8015
-- Final test macro F1: 0.7837
-- Baseline operational threshold: 0.80
 
-Do not alter, tune, or reinterpret these final test results.
+- TF-IDF + Logistic Regression;
+- test accuracy: 0.8015;
+- test macro F1: 0.7837;
+- test weighted F1: 0.8001;
+- fixed routing threshold: 0.80;
+- test automation coverage: 42.6216%;
+- accuracy on automatically routed cases: 0.9641;
+- macro F1 on automatically routed cases: 0.9390.
 
-## Hardware and environment
+Selected product model:
 
-Development environment:
-- Native Windows
-- Python 3.12
-- NVIDIA GeForce RTX 4080 SUPER
-- Approximately 16 GB VRAM
-- CUDA-enabled PyTorch
-- bfloat16 supported
+- `answerdotai/ModernBERT-base`;
+- maximum length: 512 tokens;
+- test accuracy: 0.8222;
+- test macro F1: 0.8040;
+- test weighted F1: 0.8209;
+- fixed routing threshold: 0.90;
+- test automation coverage: 61.0320%;
+- accuracy on automatically routed cases: 0.9587;
+- macro F1 on automatically routed cases: 0.9413.
 
-Use CUDA when available and provide a CPU fallback for inference.
+Hardware used:
 
-Do not hard-code the developer's absolute Windows user path. Use pathlib and
-project-relative paths.
+- Windows;
+- Python 3.12;
+- NVIDIA RTX 4080 SUPER;
+- approximately 16 GB VRAM;
+- CUDA and bfloat16 support.
 
-## Critical machine-learning constraints
+Throughput and model-size measurements are specific to the local hardware and
+software environment. Do not present them as universal guarantees.
 
-- The final test set has already been opened and evaluated.
-- Never use test results for further tuning, model selection, threshold
-  selection, feature selection, or hyperparameter changes.
-- Do not retrain ModernBERT or repeat expensive experiments unless explicitly
-  requested.
-- Do not rescan the full 8.53 GB raw CSV when clean Parquet artifacts already
-  contain the required data.
-- Do not use Issue or Sub-issue as model input because they create target
-  leakage.
-- Preserve the existing saved models, reports, predictions, and metrics.
-- Refer to model outputs as confidence scores unless probability calibration
-  is explicitly implemented and evaluated.
+## Machine-learning integrity
+
+The final test set has already been opened.
+
+Never:
+
+- retrain models without explicit permission;
+- repeat final test evaluation;
+- tune thresholds using test results;
+- modify final metrics;
+- use test results for model, feature, or hyperparameter selection;
+- use `issue` or `sub_issue` as model inputs;
+- rescan the full raw dataset unnecessarily;
+- describe confidence scores as calibrated probabilities;
+- fabricate experiment or notebook outputs;
+- claim validation inside a real financial institution.
+
+Use saved metrics and artifacts instead of rerunning expensive experiments.
+
+The attempted temporal split was rejected because one product class had only
+18 examples in the candidate 2026 test period.
+
+The final benchmark uses a deterministic stratified random split.
+
+Document clearly that this benchmark:
+
+- enables comparison under a similar data distribution;
+- does not prove robustness to future temporal drift;
+- does not prove robustness to future taxonomy changes.
+
+## Product behavior
+
+The product prototype uses ModernBERT as its inference model.
+
+Logistic Regression remains documented as:
+
+- the classical baseline;
+- a lightweight deployment comparison;
+- evidence of the quality, latency, and size trade-off.
+
+Do not build a second production backend unless explicitly requested later.
+
+The existing `FinancialComplaintTriageService` is the single source of
+preprocessing and inference logic.
+
+The API and Streamlit application must reuse this service and must not duplicate:
+
+- text cleaning;
+- tokenization;
+- model inference;
+- confidence calculation;
+- routing decisions;
+- top-candidate generation.
+
+The service must support:
+
+- `predict_one`;
+- true batched `predict_batch`;
+- configurable confidence threshold;
+- CUDA with bfloat16 when supported;
+- CPU fallback;
+- project-relative model paths;
+- clear errors when model artifacts are missing.
+
+`predict_batch` must tokenize and infer over batches.
+
+It must not call `predict_one` repeatedly.
+
+Each prediction result must contain:
+
+- predicted product;
+- confidence score;
+- routing decision;
+- decision reason;
+- threshold;
+- top candidates.
+
+Use the terms:
+
+- `automatic_route`;
+- `manual_review`.
+
+Do not describe the score as a calibrated probability.
+
+## API scope
+
+Implement only:
+
+- `GET /health`;
+- `POST /predict`;
+- `POST /predict/batch`.
+
+Requirements:
+
+- FastAPI and Pydantic schemas;
+- one shared service instance;
+- dependency override support for tests;
+- maximum text length;
+- maximum batch size;
+- safe and understandable errors;
+- no raw complaint text in logs;
+- no personal local paths in responses;
+- no model loading per request.
+
+Do not add:
+
+- authentication;
+- databases;
+- queues;
+- background workers;
+- monitoring platforms;
+- cloud deployment infrastructure;
+- user management;
+- persistent request history.
+
+## Streamlit scope
+
+The demo must support:
+
+- entering one complaint narrative;
+- selecting a synthetic example;
+- showing the predicted product;
+- showing the confidence score;
+- showing automatic route or manual review;
+- showing the decision reason;
+- showing the top candidates;
+- showing the active threshold;
+- showing a short limitations notice.
+
+Do not include real complaint narratives as examples.
+
+Do not add:
+
+- dashboards;
+- authentication;
+- stored prediction history;
+- user accounts;
+- analytics;
+- batch-file uploads;
+- administrative panels.
+
+The demo should be focused and understandable in a few minutes.
 
 ## Notebook rules
 
-Notebooks are concise experiment reports, not application modules or test
-suites.
+The public repository should contain two notebooks:
 
-- Consolidate related diagnostics into one meaningful cell per phase.
-- Aim for no more than 5–7 executable cells per notebook unless technically
-  unavoidable.
-- Each cell must perform a complete logical phase.
-- Print only information required to understand results or make a decision.
-- Remove repeated debugging cells, redundant imports, exploratory fragments,
-  and duplicate outputs.
-- Preserve important experimental results and explanations.
-- Do not rerun expensive training merely to regenerate notebook outputs.
-- Use markdown to explain decisions instead of creating extra code cells.
-- Move reusable functions to src/.
-- Move repeatable validation to tests/ or scripts/.
+1. `01_dataset_audit.ipynb`
+2. `02_model_experiments.ipynb`
 
-## Code architecture
+The second notebook may contain the baseline and transformer experiments
+together because they form one model-selection story.
 
-Prefer this separation:
+Target 4–8 executable cells per notebook.
 
-- src/financial_complaint_triage/: reusable application logic
-- api/: API entry points
-- app/: interactive demo
-- tests/: automated tests
-- scripts/: repository verification and utility scripts
-- notebooks/: concise experimentation reports
-- reports/: metrics, predictions, and generated reports
-- models/: trained model artifacts
-- data/: raw, interim, and processed data
+Do not exceed 10 executable cells without a clear technical reason.
 
-Reuse FinancialComplaintTriageService from
-src/financial_complaint_triage/inference.py. Do not duplicate inference logic
-inside the API, app, notebooks, or tests.
+Never create a huge unreadable cell merely to reduce the cell count.
 
-## Engineering rules
+Each code cell must represent one complete logical phase.
 
-- Inspect existing code before modifying it.
-- Present a concise plan before broad repository changes.
-- Do not silently delete files or experiment results.
-- Ask before adding new production dependencies.
-- Prefer small, focused modules with type annotations and clear error handling.
-- Use consistent project-relative configuration.
-- Avoid premature abstractions and unnecessary frameworks.
-- Do not create placeholder functionality presented as complete.
-- Preserve backward compatibility when reasonable.
-- Keep user-facing output concise and understandable.
+### Dataset notebook phases
 
-## Verification strategy
+1. configuration and efficient loading;
+2. consolidated audit;
+3. period and sample selection;
+4. cleaning, deduplication, and export;
+5. final decisions and dataset summary.
 
-Testing must be rigorous but efficient.
+### Model notebook phases
 
-Use automated tests rather than adding notebook cells.
+1. load prepared splits;
+2. classical baseline comparison;
+3. confidence-routing analysis;
+4. transformer configuration and recorded training results;
+5. final model comparison and held-out test results;
+6. conclusions and limitations.
 
-At minimum verify:
+Remove:
 
-- package imports;
+- repeated diagnostics;
+- debugging cells;
+- duplicate imports;
+- failed temporary cells with no explanatory value;
+- personal absolute paths;
+- raw complaint previews;
+- repeated outputs;
+- checks that belong in automated tests.
+
+Preserve:
+
+- decision-relevant tables;
+- validated final metrics;
+- methodology explanations;
+- model-selection reasoning;
+- confidence-routing results;
+- limitations;
+- evidence of the baseline-versus-transformer trade-off.
+
+Never rerun expensive training merely to regenerate notebook outputs.
+
+Never fabricate notebook outputs.
+
+Use notebook-aware editing and verify that modified notebooks remain valid.
+
+When a saved metric can replace an expensive recomputation, load and present the
+saved metric clearly.
+
+## Data and privacy
+
+Do not commit:
+
+- raw data;
+- processed datasets;
+- model weights;
+- checkpoints;
+- Hugging Face caches;
+- prediction-level Parquet files;
+- secrets;
+- personal absolute paths;
+- environment-specific temporary files.
+
+Do not delete local ignored data or model artifacts.
+
+Ignoring an artifact in Git is not permission to remove it.
+
+Complaint narratives may contain sensitive financial or personal information.
+
+Do not:
+
+- log complete narratives;
+- persist API requests by default;
+- echo full narratives in errors;
+- use real complaints in tests;
+- use real complaints as demo examples;
+- include real complaints in screenshots;
+- expose local filesystem paths.
+
+Use synthetic complaint text in public examples and tests.
+
+## Testing scope
+
+Keep testing focused and meaningful.
+
+Create only:
+
+- `tests/test_inference.py`
+- `tests/test_api.py`
+- `tests/test_model_smoke.py`
+
+Do not create separate unit, integration, fixtures, helpers, or test-utility
+packages unless a demonstrated need exists.
+
+### `tests/test_inference.py`
+
+Test:
+
 - text cleaning;
-- empty and insufficient text handling;
-- confidence-threshold routing;
-- top-k predictions;
-- invalid model paths and invalid configuration;
-- model label mappings;
-- CPU fallback;
-- saved model loading;
-- one transformer inference smoke test;
-- baseline inference smoke test;
-- API request and response schema;
-- application import/startup smoke test;
-- processed dataset schema;
-- absence of ID or normalized-text overlap between stored splits;
-- notebook validity and compact cell counts.
+- empty input;
+- insufficient-text handling;
+- invalid confidence threshold;
+- routing above the threshold;
+- routing below the threshold;
+- top-k candidate ordering;
+- batch result count;
+- true batch behavior using a lightweight fake model or injected test double.
 
-Avoid loading the transformer repeatedly across separate tests. Use
-session-scoped fixtures or an equivalent efficient strategy.
+Do not load ModernBERT in these fast tests.
 
-Create one repository verification command or script that executes the
-appropriate checks and prints a compact pass/fail summary.
+### `tests/test_api.py`
+
+Test:
+
+- health endpoint;
+- valid single prediction;
+- valid batch prediction;
+- empty input;
+- text-length limit;
+- batch-size limit;
+- safe error responses.
+
+API tests must use a test double and must not load ModernBERT.
+
+### `tests/test_model_smoke.py`
+
+Create one locally marked slow smoke test that:
+
+- loads the saved ModernBERT artifact;
+- runs one synthetic complaint;
+- confirms the output contract;
+- confirms the model has the expected 11 labels.
+
+Do not create dozens of minor tests.
+
+GitHub Actions must run only fast tests.
+
+GitHub Actions must not:
+
+- download ModernBERT;
+- download the full dataset;
+- require CUDA;
+- run the slow model smoke test.
+
+Never claim a test passed unless it was actually executed.
+
+## Dependencies
+
+Inspect the existing environment before changing dependencies.
+
+A minimal `pyproject.toml` may be added for:
+
+- editable installation;
+- package metadata;
+- pytest configuration;
+- test markers.
+
+Keep `requirements.txt` usable.
+
+Expected dependencies include only what the project actually uses, such as:
+
+- pandas;
+- numpy;
+- scikit-learn;
+- torch;
+- transformers;
+- datasets;
+- accelerate;
+- pyarrow;
+- joblib;
+- fastapi;
+- uvicorn;
+- streamlit;
+- pydantic;
+- pytest;
+- httpx;
+- nbformat.
+
+Do not add a dependency solely for a minor convenience that standard Python can
+handle.
+
+Do not remove existing required dependencies without confirming that the
+project still works.
+
+## README goals
+
+The README must be written for recruiters and technical reviewers.
+
+Recommended order:
+
+1. problem and intended user;
+2. system behavior;
+3. key result;
+4. demo and quick start;
+5. model comparison;
+6. architecture;
+7. API usage;
+8. data and experimental methodology;
+9. testing;
+10. limitations and responsible use;
+11. project structure.
+
+The README should begin with the real operational use case, not with a long
+machine-learning theory section.
+
+Make the principal claim accurately:
+
+> On the held-out benchmark, ModernBERT automatically routed approximately 61%
+> of complaints with approximately 95.9% accuracy on the accepted subset, while
+> sending the remaining cases to human review.
+
+Do not claim that a real organization already reduced its workload by 61%.
+
+Explain that the result represents potential operational value under the
+benchmark conditions.
+
+Clearly communicate the trade-off:
+
+- ModernBERT provides better quality and higher automation coverage;
+- Logistic Regression is much smaller and faster.
+
+Document limitations honestly, especially:
+
+- uncalibrated confidence scores;
+- possible temporal drift;
+- historical taxonomy changes;
+- truncation at 512 tokens;
+- the difficult `Debt or credit management` class;
+- no evaluation inside a real financial institution;
+- no fairness or subgroup analysis;
+- the system is for routing support, not financial decision-making.
+
+## GitHub and artifact rules
+
+The public repository must not contain:
+
+- the 8.53 GB source dataset;
+- compressed copies of the source dataset;
+- processed Parquet files;
+- ModernBERT weights;
+- training checkpoints;
+- Hugging Face caches;
+- prediction-level records;
+- secrets;
+- personal paths.
+
+Do not create download scripts for artifacts that are not actually hosted.
+
+Document clearly where local artifacts are expected and how a user can
+reproduce or provide them.
+
+Do not upload anything to GitHub, Hugging Face, or another external service.
+
+Do not commit or push.
+
+## Working method
+
+Before broad edits:
+
+1. inspect the repository;
+2. identify the exact files to change;
+3. present a concise plan;
+4. wait for approval.
+
+After an approved implementation phase:
+
+1. run the relevant tests;
+2. inspect the complete diff;
+3. fix confirmed problems;
+4. report the commands actually executed;
+5. report pass or fail results honestly;
+6. stop before the next phase.
+
+Do not perform the entire project refactor in one uncontrolled change set.
+
+Do not:
+
+- commit;
+- push;
+- publish;
+- upload;
+- train;
+- repeat final evaluation;
+- delete artifacts.
+
+## Approval boundaries
+
+Pause before:
+
+- destructive operations;
+- deleting or moving local artifacts;
+- retraining a model;
+- modifying final test outputs;
+- downloading large files;
+- adding dependencies outside the expected list;
+- changing the license;
+- creating files outside the target structure;
+- rewriting Git history;
+- committing or pushing.
+
+Routine edits inside an approved phase do not require repeated confirmation.
 
 ## Definition of done
 
-Work is complete only when:
+The project is complete when:
 
-1. Existing notebooks are compact, readable, and reproducible without
-   unnecessary cells.
-2. Reusable logic lives in src/.
-3. The inference service works with the saved ModernBERT model.
-4. The API and interactive application use the same inference service.
-5. Automated tests cover critical behavior.
-6. The verification command completes successfully.
-7. README.md accurately explains setup, architecture, results, limitations,
-   commands, and demo usage.
-8. requirements or project dependency configuration matches the actual code.
-9. .gitignore protects datasets, caches, temporary checkpoints, virtual
-   environments, and generated artifacts as appropriate.
-10. No final test data was used for additional tuning.
-11. A final diff review finds no obvious regressions, duplicated logic,
-    misleading claims, or broken paths.
+- the inference service works without duplicated logic;
+- true batch inference is implemented;
+- FastAPI endpoints work;
+- the Streamlit demo works;
+- fast tests pass;
+- the local model smoke test passes when the artifact is available;
+- notebooks are concise and valid;
+- README accurately explains the real use case and results;
+- GitHub Actions runs the fast tests;
+- no sensitive or large artifacts are staged;
+- no personal absolute paths remain;
+- no final metrics were changed;
+- the final diff contains no unnecessary architecture.
 
-## Final response format
+## Completion report
 
-At the end of a task, report only:
+At the end of each approved phase, report only:
 
 - files created or modified;
-- tests and commands executed;
-- pass/fail results;
-- remaining limitations or blockers;
-- any action requiring the user's approval.
+- commands actually executed;
+- tests and their results;
+- unresolved blockers or limitations;
+- decisions requiring approval.
+
+Keep the report compact and factual.
