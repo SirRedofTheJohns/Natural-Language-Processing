@@ -1,0 +1,360 @@
+{
+  "aggregate_survival": {
+    "family_size": [
+      {
+        "FamilySize": 1,
+        "passenger_count": 537,
+        "survival_rate": 0.303538
+      },
+      {
+        "FamilySize": 2,
+        "passenger_count": 161,
+        "survival_rate": 0.552795
+      },
+      {
+        "FamilySize": 3,
+        "passenger_count": 102,
+        "survival_rate": 0.578431
+      },
+      {
+        "FamilySize": 4,
+        "passenger_count": 29,
+        "survival_rate": 0.724138
+      },
+      {
+        "FamilySize": 5,
+        "passenger_count": 15,
+        "survival_rate": 0.2
+      },
+      {
+        "FamilySize": 6,
+        "passenger_count": 22,
+        "survival_rate": 0.136364
+      },
+      {
+        "FamilySize": 7,
+        "passenger_count": 12,
+        "survival_rate": 0.333333
+      },
+      {
+        "FamilySize": 8,
+        "passenger_count": 6,
+        "survival_rate": 0.0
+      },
+      {
+        "FamilySize": 11,
+        "passenger_count": 7,
+        "survival_rate": 0.0
+      }
+    ],
+    "sex_class": [
+      {
+        "Pclass": 1,
+        "Sex": "female",
+        "passenger_count": 94,
+        "survival_rate": 0.968085
+      },
+      {
+        "Pclass": 2,
+        "Sex": "female",
+        "passenger_count": 76,
+        "survival_rate": 0.921053
+      },
+      {
+        "Pclass": 3,
+        "Sex": "female",
+        "passenger_count": 144,
+        "survival_rate": 0.5
+      },
+      {
+        "Pclass": 1,
+        "Sex": "male",
+        "passenger_count": 122,
+        "survival_rate": 0.368852
+      },
+      {
+        "Pclass": 2,
+        "Sex": "male",
+        "passenger_count": 108,
+        "survival_rate": 0.157407
+      },
+      {
+        "Pclass": 3,
+        "Sex": "male",
+        "passenger_count": 347,
+        "survival_rate": 0.135447
+      }
+    ],
+    "title": [
+      {
+        "Title": "Clergy",
+        "passenger_count": 6,
+        "survival_rate": 0.0
+      },
+      {
+        "Title": "Master",
+        "passenger_count": 40,
+        "survival_rate": 0.575
+      },
+      {
+        "Title": "Miss",
+        "passenger_count": 185,
+        "survival_rate": 0.702703
+      },
+      {
+        "Title": "Mr",
+        "passenger_count": 517,
+        "survival_rate": 0.156673
+      },
+      {
+        "Title": "Mrs",
+        "passenger_count": 126,
+        "survival_rate": 0.793651
+      },
+      {
+        "Title": "Nobility",
+        "passenger_count": 5,
+        "survival_rate": 0.6
+      },
+      {
+        "Title": "Officer",
+        "passenger_count": 5,
+        "survival_rate": 0.4
+      },
+      {
+        "Title": "Professional",
+        "passenger_count": 7,
+        "survival_rate": 0.428571
+      }
+    ]
+  },
+  "covariate_shift": {
+    "age_median_test": 27.0,
+    "age_median_train": 28.0,
+    "family_overlap_groups": 138,
+    "family_size_mean_test": 1.8397129186602872,
+    "family_size_mean_train": 1.904601571268238,
+    "fare_median_test": 14.4542,
+    "fare_median_train": 14.4542,
+    "missing_rate_difference_test_minus_train": {
+      "Age": 0.007088428141059699,
+      "Cabin": 0.011252879673932292,
+      "Embarked": -0.002244668911335578,
+      "Fare": 0.0023923444976076554,
+      "Name": 0.0,
+      "Parch": 0.0,
+      "PassengerId": 0.0,
+      "Pclass": 0.0,
+      "Sex": 0.0,
+      "SibSp": 0.0,
+      "Ticket": 0.0
+    },
+    "ticket_overlap_groups": 115
+  },
+  "decisions": [
+    "Merge 'the Countess' into the normalized Nobility title group.",
+    "Add NumberOfCabins because multi-cabin strings occur in both files.",
+    "Retain AgeMissing, FareMissing, LogFare, and coarse family-size categories.",
+    "Fit ticket/family count mappings on each training fold; unseen groups map to one.",
+    "Do not use target-derived group priors: many repeated training groups have conflicting outcomes and the added leakage complexity is not required.",
+    "Do not use transductive train/test counts because explicit permission was not confirmed."
+  ],
+  "group_structure": {
+    "family": {
+      "conflicting_train_groups": 46,
+      "overlap_groups": 138,
+      "test_repeated_groups": 47,
+      "test_rows_in_multi_member_groups": 100,
+      "train_repeated_groups": 127,
+      "train_rows_in_multi_member_groups": 317
+    },
+    "ticket": {
+      "conflicting_train_groups": 49,
+      "overlap_groups": 115,
+      "test_repeated_groups": 42,
+      "test_rows_in_multi_member_groups": 97,
+      "train_repeated_groups": 134,
+      "train_rows_in_multi_member_groups": 344
+    }
+  },
+  "missing_counts": {
+    "test": {
+      "Age": 86,
+      "Cabin": 327,
+      "Embarked": 0,
+      "Fare": 1,
+      "Name": 0,
+      "Parch": 0,
+      "PassengerId": 0,
+      "Pclass": 0,
+      "Sex": 0,
+      "SibSp": 0,
+      "Ticket": 0
+    },
+    "train": {
+      "Age": 177,
+      "Cabin": 687,
+      "Embarked": 2,
+      "Fare": 0,
+      "Name": 0,
+      "Parch": 0,
+      "PassengerId": 0,
+      "Pclass": 0,
+      "Sex": 0,
+      "SibSp": 0,
+      "Survived": 0,
+      "Ticket": 0
+    }
+  },
+  "numeric_summary": {
+    "test": {
+      "Age": {
+        "1%": 0.8579,
+        "25%": 21.0,
+        "50%": 27.0,
+        "75%": 39.0,
+        "95%": 57.0,
+        "99%": 64.0,
+        "count": 332.0,
+        "max": 76.0,
+        "mean": 30.27259,
+        "min": 0.17,
+        "std": 14.181209
+      },
+      "Fare": {
+        "1%": 6.446828,
+        "25%": 7.8958,
+        "50%": 14.4542,
+        "75%": 31.5,
+        "95%": 151.55,
+        "99%": 262.375,
+        "count": 417.0,
+        "max": 512.3292,
+        "mean": 35.627188,
+        "min": 0.0,
+        "std": 55.907576
+      },
+      "Parch": {
+        "1%": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 0.0,
+        "95%": 2.0,
+        "99%": 4.0,
+        "count": 418.0,
+        "max": 9.0,
+        "mean": 0.392344,
+        "min": 0.0,
+        "std": 0.981429
+      },
+      "SibSp": {
+        "1%": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 1.0,
+        "95%": 2.0,
+        "99%": 4.0,
+        "count": 418.0,
+        "max": 8.0,
+        "mean": 0.447368,
+        "min": 0.0,
+        "std": 0.89676
+      }
+    },
+    "train": {
+      "Age": {
+        "1%": 1.0,
+        "25%": 20.125,
+        "50%": 28.0,
+        "75%": 38.0,
+        "95%": 56.0,
+        "99%": 65.87,
+        "count": 714.0,
+        "max": 80.0,
+        "mean": 29.699118,
+        "min": 0.42,
+        "std": 14.526497
+      },
+      "Fare": {
+        "1%": 0.0,
+        "25%": 7.9104,
+        "50%": 14.4542,
+        "75%": 31.0,
+        "95%": 112.07915,
+        "99%": 249.00622,
+        "count": 891.0,
+        "max": 512.3292,
+        "mean": 32.204208,
+        "min": 0.0,
+        "std": 49.693429
+      },
+      "Parch": {
+        "1%": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 0.0,
+        "95%": 2.0,
+        "99%": 4.0,
+        "count": 891.0,
+        "max": 6.0,
+        "mean": 0.381594,
+        "min": 0.0,
+        "std": 0.806057
+      },
+      "SibSp": {
+        "1%": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 1.0,
+        "95%": 3.0,
+        "99%": 5.0,
+        "count": 891.0,
+        "max": 8.0,
+        "mean": 0.523008,
+        "min": 0.0,
+        "std": 1.102743
+      }
+    }
+  },
+  "parser_coverage": {
+    "test_multiple_cabins": 14,
+    "test_numeric_only_tickets": 296,
+    "test_rare_titles": 0,
+    "test_unknown_surnames": 0,
+    "test_unknown_titles": 0,
+    "train_multiple_cabins": 20,
+    "train_numeric_only_tickets": 661,
+    "train_rare_titles": 0,
+    "train_unknown_surnames": 0,
+    "train_unknown_titles": 0
+  },
+  "schema": {
+    "sample_submission_shape": [
+      418,
+      2
+    ],
+    "test_duplicates_excluding_id": 0,
+    "test_exact_duplicates": 0,
+    "test_shape": [
+      418,
+      11
+    ],
+    "train_duplicates_excluding_id": 0,
+    "train_exact_duplicates": 0,
+    "train_shape": [
+      891,
+      12
+    ]
+  },
+  "target": {
+    "counts": {
+      "0": 549,
+      "1": 342
+    },
+    "gender_rule_training_accuracy": 0.7867564534231201,
+    "proportions": {
+      "0": 0.6161616161616161,
+      "1": 0.3838383838383838
+    }
+  }
+}

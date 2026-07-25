@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=75,<82"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "titanic-survival-prediction"
+version = "1.0.0"
+description = "A leakage-safe, notebook-first solution for the Kaggle Titanic benchmark."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+authors = [{ name = "Juan Isidro Almonte Fernández" }]
+license = { text = "MIT" }
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "catboost>=1.2,<2.0",
+  "matplotlib>=3.9,<4.0",
+  "numpy>=2.0,<3.0",
+  "pandas>=2.2,<4.0",
+  "scikit-learn>=1.6,<2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "jupyter>=1.1,<2.0",
+  "kaggle>=2.0,<3.0",
+  "nbclient>=0.10,<1.0",
+  "nbformat>=5.10,<6.0",
+  "PyYAML>=6.0,<7.0",
+  "pytest>=8.3,<10.0",
+  "ruff>=0.9,<1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = ["notebooks"]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
