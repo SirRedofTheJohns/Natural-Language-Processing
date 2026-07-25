@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.egg-info/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Raw and processed datasets
+data/raw/*
+data/interim/*
+data/processed/*
+
+# Allow public documentation and synthetic examples
+!data/README.md
+!data/sample/
+!data/sample/**
+
+# Trained models and large binary artifacts
+models/*
+
+# Allow model documentation and manifests
+!models/README.md
+!models/artifact_manifest.json
+
+# Hugging Face and training caches
+.cache/
+huggingface/
+**/checkpoint-*/
+**/checkpoints/
+
+# Predictions and potentially sensitive derived records
+reports/predictions/*
+
+# Allow documentation inside predictions directory
+!reports/predictions/README.md
+
+# Temporary outputs
+tmp/
+temp/
+*.log
